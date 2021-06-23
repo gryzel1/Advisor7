@@ -38,7 +38,7 @@ if (!$_SESSION["cuid"]) {
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1,width=device-width">
-    <title> Orange Advisor - Accueil</title>
+    <title> Advisor7 - Accueil</title>
 
     <!-- CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
@@ -73,30 +73,7 @@ if (!$_SESSION["cuid"]) {
   </head>
 
   <body>
-    <div class="header">
-      <div class="block container margin-auto">
-        <div class="is-header">
-          <div class="columns">
-            <div class="column">
-              <p class="advisor"><img src="img/logo.png" alt="Orange" style="width:50px;margin-top:15px"> Advisor <?php if($_SESSION["cuid"]!="test0000")echo '<a id="addButtonMobile" class="is-hidden-desktop" style="color:white;font-size:20px;"><i class="fas fa-plus-square"></i></a><a href="modify.php" class="is-hidden-desktop" style="color:white;font-size:20px;margin-left:5px"><i class="fas fa-pen-square"></i></a>'; ?></p>
-              <p class="prenom"><span class="bjr">Bonjour </span><?php echo $_SESSION["prenom"]; ?> <a href="disconnect.php" style="color:white"><i class="fas fa-sign-out-alt"></i></a></p>
-            </div>
-            <div class="column button-column">
-              <br>
-              <?php
-              if($_SESSION["cuid"]!="test0000"){
-                echo '<a id="addButton" class="orange-button is-hidden-touch" href="#"><i class="fas fa-plus"></i>&nbsp;&nbsp;Ajouter un restaurant</a>
-                <br><br>
-                <a class="orange-button is-hidden-touch" href="modify.php"><i class="fas fa-pen"></i>&nbsp;&nbsp;Modifier la liste</a>';
-              }
-               ?>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </div>
+    <?php require_once('include/header.php');?>
     <div id="map"></div>
     <script src="js/map.js"></script>
     <?php
@@ -148,20 +125,20 @@ if (!$_SESSION["cuid"]) {
           $inscrits=$num." inscrits";
         }
         if ($num) {
-          echo ".setContent('<a class=\"select".$id."\" style=\"display:inline-flex;text-align:center;color: #f16e00;\"><i class=\"fas fa-utensils\"></i>&nbsp;&nbsp;".$nom."<br>".$plat.$€.$sep.$moy.$etoile."</a><p data-badge=\"".$inscrits."\" class=\"has-badge-rounded has-badge-orange\"></p>')
+          echo ".setContent('<a class=\"select".$id."\" style=\"display:inline-flex;text-align:center;color: #D81B60;\"><i class=\"fas fa-utensils\"></i>&nbsp;&nbsp;".$nom."<br>".$plat.$€.$sep.$moy.$etoile."</a><p data-badge=\"".$inscrits."\" class=\"has-badge-rounded has-badge-pink\"></p>')
               ;popups.push(popup".$id.");</script>";
         }else {
-          echo ".setContent('<a class=\"select".$id."\" style=\"display:inline-flex;text-align:center;color: #f16e00;\"><i class=\"fas fa-utensils\"></i>&nbsp;&nbsp;".$nom."<br>".$plat.$€.$sep.$moy.$etoile."</a>')
+          echo ".setContent('<a class=\"select".$id."\" style=\"display:inline-flex;text-align:center;color: #D81B60;\"><i class=\"fas fa-utensils\"></i>&nbsp;&nbsp;".$nom."<br>".$plat.$€.$sep.$moy.$etoile."</a>')
               ;popups.push(popup".$id.");</script>";
         }
-        echo "<script>var orangeMarker = L.ExtraMarkers.icon({
+        echo "<script>var pinkMarker = L.ExtraMarkers.icon({
             icon: 'fa-utensils',
-            markerColor: '#f16e00',
+            markerColor: '#D81B60',
             svg: 'true',
             shape: 'circle',
             prefix: 'fas'
           });
-          var marker".$id." = L.marker([".$x.", ".$y."], {icon: orangeMarker});
+          var marker".$id." = L.marker([".$x.", ".$y."], {icon: pinkMarker});
           marker".$id.".bindPopup(popup".$id.");
           markersCluster.addLayer(marker".$id.");</script>";
         $nom = str_replace("\'","'",$nom);
@@ -206,9 +183,9 @@ if (!$_SESSION["cuid"]) {
                           $queryPresent = $db->query('SELECT * FROM reservation where date like "'.$date.'" and id = '.$id.' and cuid like "'.$_SESSION["cuid"].'"');
                           $rowPresent = $queryPresent->fetch_assoc();
                           if(!$rowPresent&&$_SESSION["cuid"]!="test0000"){
-                            echo '<a id="joinResto'.$id.'" href="joinResto.php/?id='.$id.'" style="padding-right:10px;padding-left:10px;" class="button is-link is-orange"><i class="fas fa-utensils"></i>&nbsp;&nbsp;Manger ici</a>';
+                            echo '<a id="joinResto'.$id.'" href="joinResto.php/?id='.$id.'" style="padding-right:10px;padding-left:10px;" class="button is-link is-pink"><i class="fas fa-utensils"></i>&nbsp;&nbsp;Manger ici</a>';
                           }else if($_SESSION["cuid"]!="test0000"){
-                            echo '<a id="leaveResto'.$id.'" href="leaveResto.php/?id='.$id.'" style="padding-right:10px;padding-left:10px;" class="button is-link is-orange"><i class="fas fa-times"></i>&nbsp;&nbsp;Ne plus manger ici</a>';
+                            echo '<a id="leaveResto'.$id.'" href="leaveResto.php/?id='.$id.'" style="padding-right:10px;padding-left:10px;" class="button is-link is-pink"><i class="fas fa-times"></i>&nbsp;&nbsp;Ne plus manger ici</a>';
                           }
                           echo '</div>
                           </div>
@@ -226,8 +203,8 @@ if (!$_SESSION["cuid"]) {
                          <br>
                            <div class="field is-grouped">
                             <div class="control" style="display:block;margin:auto">
-                              <a href="geo:'.$x.','.$y.'" style="padding-right:10px;padding-left:10px;" class="button is-link is-orange"><i class="fa fa-map-marker"></i>&nbsp;&nbsp;Se rendre sur place</a>';
-                              if($tel)echo '<a href="tel:'.$tel.'" style="padding-right:10px;padding-left:10px;margin-top:10px" class="button is-link is-orange"><i class="fa fa-phone"></i>&nbsp;&nbsp;Réserver</a>';
+                              <a href="geo:'.$x.','.$y.'" style="padding-right:10px;padding-left:10px;" class="button is-link is-pink"><i class="fa fa-map-marker"></i>&nbsp;&nbsp;Se rendre sur place</a>';
+                              if($tel)echo '<a href="tel:'.$tel.'" style="padding-right:10px;padding-left:10px;margin-top:10px" class="button is-link is-pink"><i class="fa fa-phone"></i>&nbsp;&nbsp;Réserver</a>';
                             echo '</div>
                            </div>
                        </p>
@@ -270,7 +247,7 @@ if (!$_SESSION["cuid"]) {
                <div class="media-content">
                  <div class="content">
                    <p>
-                     <strong>'.$username.'</strong><span class="orange-color">&nbsp;&nbsp;';
+                     <strong>'.$username.'</strong><span class="pink-color">&nbsp;&nbsp;';
            for ($i = 1; $i <= $note; $i++) {
                echo '<i class="fas fa-star"></i>';
            }
@@ -384,7 +361,7 @@ if (!$_SESSION["cuid"]) {
        </div>
        <div class="field is-grouped" style="display:block;margin:auto;margin-top:20px">
         <div class="control">
-          <button id="submit-button" type="submit" name="submit" class="button is-link is-orange"><i class="fas fa-plus"></i>&nbsp;&nbsp;Ajouter le restaurant</button>
+          <button id="submit-button" type="submit" name="submit" class="button is-link is-pink"><i class="fas fa-plus"></i>&nbsp;&nbsp;Ajouter le restaurant</button>
         </div>
        </div>
        </form>

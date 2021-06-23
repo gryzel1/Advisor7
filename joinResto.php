@@ -1,7 +1,7 @@
 <!-- head -->
 <head>
   <meta charset="utf-8">
-  <title> Orange Advisor</title>
+  <title> Advisor7 </title>
 
   <!-- CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">

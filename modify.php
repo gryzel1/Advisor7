@@ -18,7 +18,7 @@ if (!$_SESSION["cuid"]=="test0000") {
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1,width=device-width">
-    <title> Orange Advisor - Liste</title>
+    <title> Advisor7 - Liste</title>
 
     <!-- CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
@@ -50,11 +50,11 @@ if (!$_SESSION["cuid"]=="test0000") {
         <div class="is-header">
           <div class="columns">
             <div class="column">
-              <p class="advisor"><img src="img/logo.png" alt="Orange" style="width:50px;margin-top:15px"> Advisor </a><a href="index.php" class="is-hidden-desktop" style="color:white;font-size:20px"><i class="fas fa-home"></i></a></p>
+              <p class="advisor"><img src="img/logo.png" alt="pink" style="width:50px;margin-top:15px"> Advisor </a><a href="index.php" class="is-hidden-desktop" style="color:white;font-size:20px"><i class="fas fa-home"></i></a></p>
             </div>
             <div class="column button-column">
               <br>
-              <a id="addButton" class="orange-button is-hidden-touch" href="index.php"><i class="fas fa-map-marked-alt"></i>&nbsp;&nbsp;Retour à la carte</a>
+              <a id="addButton" class="pink-button is-hidden-touch" href="index.php"><i class="fas fa-map-marked-alt"></i>&nbsp;&nbsp;Retour à la carte</a>
               <br><br>
             </div>
           </div>
@@ -82,9 +82,9 @@ if (!$_SESSION["cuid"]=="test0000") {
             $plat .= "€";
           }
           if($tel){
-            $telStr=' &nbsp;&nbsp;/&nbsp;&nbsp; <span class="orange-color"><i class="fa fa-phone"></i></span>&nbsp;&nbsp;'.$tel;
+            $telStr=' &nbsp;&nbsp;/&nbsp;&nbsp; <span class="pink-color"><i class="fa fa-phone"></i></span>&nbsp;&nbsp;'.$tel;
           }else{
-            $telStr=' &nbsp;&nbsp;/&nbsp;&nbsp; <span class="orange-color"><i class="fa fa-phone"></i></span>&nbsp;&nbsp; Non défini';
+            $telStr=' &nbsp;&nbsp;/&nbsp;&nbsp; <span class="pink-color"><i class="fa fa-phone"></i></span>&nbsp;&nbsp; Non défini';
           }
           echo '<div class="box is-hidden-touch" style="width:75%;margin:auto;margin-top:15px;">
             <article class="media">
@@ -95,7 +95,7 @@ if (!$_SESSION["cuid"]=="test0000") {
                     <span style="float:right;margin-right:10px;"><a id="select'.$id.'" class="button is-success is-modify"><i class="fas fa-pen"></i></a></span>
                     <strong>'.$nom.'</strong>
                     <br>
-                    <span class="orange-color"><i class="fas fa-city"></i></span>&nbsp;&nbsp;'.$commune.' &nbsp;&nbsp;/ &nbsp;&nbsp;<span class="orange-color"><i class="fas fa-map-pin"></i></span>&nbsp;&nbsp;<strong>Longitude :</strong> '.$x.' - <strong>Latitude :</strong> '.$y.' &nbsp;&nbsp;/&nbsp;&nbsp; <span class="orange-color"><i class="fas fa-money-bill-wave"></i></span>&nbsp;&nbsp;'.$plat.$telStr.'
+                    <span class="pink-color"><i class="fas fa-city"></i></span>&nbsp;&nbsp;'.$commune.' &nbsp;&nbsp;/ &nbsp;&nbsp;<span class="pink-color"><i class="fas fa-map-pin"></i></span>&nbsp;&nbsp;<strong>Longitude :</strong> '.$x.' - <strong>Latitude :</strong> '.$y.' &nbsp;&nbsp;/&nbsp;&nbsp; <span class="pink-color"><i class="fas fa-money-bill-wave"></i></span>&nbsp;&nbsp;'.$plat.$telStr.'
                   </p>
                 </div>
               </div>
@@ -113,7 +113,7 @@ if (!$_SESSION["cuid"]=="test0000") {
                     <span style="float:right;margin-right:10px;"><a id="select'.$id.'Mobile" class="button is-success is-modify"><i class="fas fa-pen"></i></a></span>
                     <strong>'.$nom.'</strong>
                     <br><br>
-                    <span class="orange-color"><i class="fas fa-city"></i></span>&nbsp;&nbsp;'.$commune.'<br><span class="orange-color"><i class="fas fa-map-pin"></i></span>&nbsp;&nbsp;<strong>Longitude :</strong> '.$x.' - <strong>Latitude :</strong> '.$y.'<br><span class="orange-color"><i class="fas fa-money-bill-wave"></i></span>&nbsp;&nbsp;'.$plat.'<br>'.$telStr.'
+                    <span class="pink-color"><i class="fas fa-city"></i></span>&nbsp;&nbsp;'.$commune.'<br><span class="pink-color"><i class="fas fa-map-pin"></i></span>&nbsp;&nbsp;<strong>Longitude :</strong> '.$x.' - <strong>Latitude :</strong> '.$y.'<br><span class="pink-color"><i class="fas fa-money-bill-wave"></i></span>&nbsp;&nbsp;'.$plat.'<br>'.$telStr.'
                   </p>
                 </div>
               </div>
@@ -179,7 +179,7 @@ if (!$_SESSION["cuid"]=="test0000") {
                  <div class="field is-grouped" style="display:block;margin:auto;margin-top:20px">
                   <div class="control">
                   <input type="hidden" name="id" value="'.$id.'">
-                    <button id="submit-button'.$id.'" type="submit" name="submit" class="button is-link is-orange"><i class="fas fa-pen"></i>&nbsp;&nbsp;Modifier le restaurant</button>
+                    <button id="submit-button'.$id.'" type="submit" name="submit" class="button is-link is-pink"><i class="fas fa-pen"></i>&nbsp;&nbsp;Modifier le restaurant</button>
                   </div>
                  </div>
                  </form>

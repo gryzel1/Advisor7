@@ -1,14 +1,14 @@
 @font-face {
   font-family: "HN";
-  src: url(font/HelveticaNeue.otf);
+  src: url(../font/HelveticaNeue.otf);
 }
 
 body{
-  /*font-family: "HN";*/
+  font-family: "HN";
 }
 
 a{
-  color: #f16e00;
+  color: #D81B60;
 }
 
 #map{
@@ -29,7 +29,7 @@ a{
   left: 0;
   right: 0;
   height: 9rem;
-  background-color: black;
+  background-color: rgb(2, 73, 147);
 }
 
 .is-header{
@@ -39,7 +39,7 @@ a{
 
 .prenom{
   font-size: 30px;
-  color: #f16e00;
+  color: #D81B60;
   padding:0;
 }
 
@@ -53,28 +53,30 @@ a{
   padding:0;
 }
 
-.orange{
+.pink{
   margin-left: 15px;
-  color: #f16e00;
+  color: #D81B60;
 }
 
-.orange-button{
-  background-color: black;
+.pink-button{
+  padding-top:10px !important;
+  background-color: #D81B60;
   color: white;
-  border:solid white;
+  border:solid #D81B60;
   border-width: 2px;
+  border-radius: 5px;
   padding: .3rem 1rem .3rem;
 }
 
-.orange-button:hover{
-  background-color: #f16e00;
-  color: black;
-  border:solid #f16e00;
+.pink-button:hover{
+  background-color: rgb(2, 73, 147);
+  color: white;
+  border:solid white;
   border-width: 2px;
 }
 
-.is-orange{
-  background-color: #f16e00 !important;
+.is-pink{
+  background-color: #D81B60 !important;
   width:100%;
   margin-left:0;
   margin-right:0;
@@ -84,16 +86,16 @@ a{
   text-align:center;
 }
 
-.is-orange-default{
-  background-color: #f16e00 !important;
+.is-pink-default{
+  background-color: #D81B60 !important;
 }
 
 .is-modify{
-  background-color: #f16e00 !important;
+  background-color: #D81B60 !important;
 }
 
-.orange-color{
-  color: #f16e00;
+.pink-color{
+  color: #D81B60;
 }
 
 .button-column{
@@ -167,12 +169,17 @@ a{
   width:100%;
   font-size: 30px;
   color: white;
-  background-color: #f16e00;
+  background-color: #024993;
   border-radius: 5px;
 }
 
 .addResto-header p{
+  padding-top: 5px;
   margin-left: 15px;
+}
+
+.addResto-header span{
+  padding-top: 5px;
 }
 
 .star {
@@ -186,12 +193,12 @@ a{
 
 .star > .star::after {
     content: '\f005';
-    color: #f16e00;
+    color: #D81B60;
 }
 
 .star > .star.full::after {
     content: '\f005';
-    color: #f16e00;
+    color: #D81B60;
 }
 
 ul {
@@ -299,8 +306,8 @@ nav {
   transform: none;
 }
 
-.has-badge-orange::after{
-  background:#f16e00;
+.has-badge-pink::after{
+  background:#D81B60;
   color:#fff;
   float:right
 }
@@ -309,7 +316,7 @@ nav {
   height: 40px;
   width: 40px;
   border-radius: 50%;
-  background-color: rgba(241, 110, 0, 0.6);
+  background-color: rgba(207, 27, 96, 0.6);
   color: white;
   text-align: center;
   font-size: 20px;
