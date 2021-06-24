@@ -5,7 +5,11 @@ if(isset($_POST['cuid'])){
   $cuid = strtolower($_POST['cuid']);
   $passwd = $_POST['passwd'];
 
-  $queryLogin = $db->query("SELECT * FROM user WHERE cuid LIKE '".$cuid."';");
+  $stmtLogin = $db->prepare("SELECT * FROM user WHERE cuid LIKE ?");
+  $stmtLogin->bind_param("s",$cuid);
+  $stmtLogin->execute();
+  $queryLogin = $stmtLogin->get_result();
+
   $rowLogin = $queryLogin->fetch_assoc();
   $motdepasse = $rowLogin['motdepasse'];
   $prenom = $rowLogin['prenom'];
@@ -93,7 +97,12 @@ if (!$_SESSION["cuid"]) {
       $queryResto = $db->query("SELECT * FROM resto");
       while($rowResto = $queryResto->fetch_assoc()){
         $nom = $rowResto['nom'];
-        $queryMoy = $db->query('SELECT ROUND(AVG(note),2) FROM rating where nom like "'.$nom.'"');
+
+        $stmtMoy = $db->prepare('SELECT ROUND(AVG(note),2) FROM rating where nom like ?');
+        $stmtMoy->bind_param("s",$nom);
+        $stmtMoy->execute();
+        $queryMoy = $stmtMoy->get_result();
+
         $rowMoy = $queryMoy->fetch_assoc();
         $moy = $rowMoy['ROUND(AVG(note),2)'];
 
@@ -107,8 +116,12 @@ if (!$_SESSION["cuid"]) {
 
         if ($plat=="") {$€="";}else {$€="€";}
         if ($moy!="" && $plat=="") {$sep="";}else{$sep=" - ";}
-        if ($moy=="") {$etoile="";$sep="";}else {$etoile="&#9733";}
-        $queryNum = $db->query('SELECT COUNT(*) FROM reservation where date like "'.$date.'" and id like '.$id);
+        if ($moy=="") {$etoile="";$sep="";}else {$etoile='&#9733';}
+
+        $stmtNum = $db->prepare('SELECT COUNT(*) FROM reservation where date like ? and id like ?');
+        $stmtNum->bind_param("ss",$date,$id);
+        $stmtNum->execute();
+        $queryNum = $stmtNum->get_result();
         echo "<script>var popup".$id." = L.popup({
           closeButton:false,
           autoClose:false,
@@ -125,10 +138,10 @@ if (!$_SESSION["cuid"]) {
           $inscrits=$num." inscrits";
         }
         if ($num) {
-          echo ".setContent('<a class=\"select".$id."\" style=\"display:inline-flex;text-align:center;color: #D81B60;\"><i class=\"fas fa-utensils\"></i>&nbsp;&nbsp;".$nom."<br>".$plat.$€.$sep.$moy.$etoile."</a><p data-badge=\"".$inscrits."\" class=\"has-badge-rounded has-badge-pink\"></p>')
+          echo ".setContent('<a class=\"select".$id."\" style=\"display:inline-flex;text-align:center;color: rgb(2, 73, 147);\"><i class=\"fas fa-utensils\"></i>&nbsp;&nbsp;".$nom."<br>".$plat.$€.$sep.$moy.$etoile."</a><p data-badge=\"".$inscrits."\" class=\"has-badge-rounded has-badge-pink\"></p>')
               ;popups.push(popup".$id.");</script>";
         }else {
-          echo ".setContent('<a class=\"select".$id."\" style=\"display:inline-flex;text-align:center;color: #D81B60;\"><i class=\"fas fa-utensils\"></i>&nbsp;&nbsp;".$nom."<br>".$plat.$€.$sep.$moy.$etoile."</a>')
+          echo ".setContent('<a class=\"select".$id."\" style=\"display:inline-flex;text-align:center;color: rgb(2, 73, 147);\"><i class=\"fas fa-utensils\"></i>&nbsp;&nbsp;".$nom."<br>".$plat.$€.$sep.$moy.$etoile."</a>')
               ;popups.push(popup".$id.");</script>";
         }
         echo "<script>var pinkMarker = L.ExtraMarkers.icon({
@@ -158,7 +171,10 @@ if (!$_SESSION["cuid"]) {
                          <br>
                           <table class=" table is-striped is-bordered">';
                           $date = date('d/m/Y');
-                          $queryJoin = $db->query('SELECT * FROM reservation where date like "'.$date.'" and id = '.$id.'');
+                          $stmtJoin = $db->prepare('SELECT * FROM reservation where date like ? and id like ?');
+                          $stmtJoin->bind_param("ss",$date,$id);
+                          $stmtJoin->execute();
+                          $queryJoin = $stmtJoin->get_result();
                           $count=0;
                           while($rowJoin = $queryJoin->fetch_assoc()){
                             $cuid = $rowJoin['cuid'];
@@ -180,7 +196,12 @@ if (!$_SESSION["cuid"]) {
                           echo '</table>';
                           echo '<div class="field is-grouped">
                            <div class="control" style="display:block;margin:auto">';
-                          $queryPresent = $db->query('SELECT * FROM reservation where date like "'.$date.'" and id = '.$id.' and cuid like "'.$_SESSION["cuid"].'"');
+                          
+                          $stmtPresent = $db->prepare('SELECT * FROM reservation where date like ? and id like ? and cuid like ?');
+                          $stmtPresent->bind_param("sss",$date,$id,$_SESSION["cuid"]);
+                          $stmtPresent->execute();
+                          $queryPresent = $stmtPresent->get_result();
+
                           $rowPresent = $queryPresent->fetch_assoc();
                           if(!$rowPresent&&$_SESSION["cuid"]!="test0000"){
                             echo '<a id="joinResto'.$id.'" href="joinResto.php/?id='.$id.'" style="padding-right:10px;padding-left:10px;" class="button is-link is-pink"><i class="fas fa-utensils"></i>&nbsp;&nbsp;Manger ici</a>';
@@ -234,9 +255,17 @@ if (!$_SESSION["cuid"]) {
                  </form>';
                }
 
-         $queryRating = $db->query('SELECT * FROM rating where nom like "'.$nom.'"');
+         $stmtRating = $db->prepare('SELECT * FROM rating where nom like ?');
+         $stmtRating->bind_param("s",$nom);
+         $stmtRating->execute();
+         $queryRating = $stmtRating->get_result();
          while($rowRating = $queryRating->fetch_assoc()){
-           $queryUsername = $db->query('SELECT * FROM user where cuid like "'.$rowRating['cuid'].'"');
+
+           $stmtUsername = $db->prepare('SELECT * FROM user where cuid like ?');
+           $stmtUsername->bind_param("s",$rowRating['cuid']);
+           $stmtUsername->execute();
+           $queryUsername = $stmtUsername->get_result();
+
            $rowUsername = $queryUsername->fetch_assoc();
            $cuidRating = $rowUsername['cuid'];
            $username = $rowUsername['prenom']." ".$rowUsername['nom'];
@@ -297,7 +326,10 @@ if (!$_SESSION["cuid"]) {
             modal.style.display = "none";
           }';
 
-      $queryResto = $db->query("SELECT * FROM resto");
+      $stmtResto = $db->prepare('SELECT * FROM resto');
+      $stmtResto->execute();
+      $queryResto = $stmtResto->get_result();
+
       while($rowResto = $queryResto->fetch_assoc()){
         $id = $rowResto['id'];
         echo 'var modal'.$id.' = document.getElementById("restoDesc'.$id.'");

@@ -43,7 +43,10 @@ if(isset($_GET['cuid'])&&isset($_GET['nom'])){
   header('Location: ../index.php');
 }
 
-$db->query('DELETE FROM rating WHERE cuid="'.$cuid.'" and nom="'.$nom.'"');
+$stmtDB = $db->prepare('DELETE FROM rating WHERE cuid=? and nom=?');
+$stmtDB->bind_param("ss",$cuid,$nom);
+$stmtDB->execute();
+$queryDB = $stmtDB->get_result();
 
 header('Location: ../index.php');
 

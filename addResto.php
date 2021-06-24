@@ -36,7 +36,9 @@ if (!$_SESSION["cuid"]) {
   header('Location: login.php');
 }
 
-$queryID = $db->query("SELECT MAX(id) FROM resto;");
+$stmtID= $db->prepare("SELECT MAX(id) FROM resto");
+$stmtID->execute();
+$queryID = $stmtID->get_result();
 $rowID = $queryID->fetch_assoc();
 $id = $rowID['MAX(id)'];
 $id++;
@@ -56,10 +58,6 @@ if ($commune=="") {
   $commune=null;
 }
 
-if ($plat=="") {
-  $plat="NULL";
-}
-
 if ($tel=="") {
   $tel=null;
 }
@@ -70,13 +68,45 @@ $x = str_replace (",", ".", $x);
 $y = str_replace (",", ".", $y);
 
 if($commune&&$tel){
-  $db->query('insert into resto values('.$id.',"'.$nom.'",'.$x.','.$y.',"'.$commune.'",'.$plat.',"'.$tel.'")');
+  if($plat==""){
+    $stmtDB= $db->prepare('insert into resto values(?,?,?,?,?,NULL,?)');
+    $stmtDB->bind_param("ssddss",$id,$nom,$x,$y,$commune,$tel);
+  }else{
+    $stmtDB= $db->prepare('insert into resto values(?,?,?,?,?,?,?)');
+    $stmtDB->bind_param("ssddsds",$id,$nom,$x,$y,$commune,$plat,$tel);
+  }
+  $stmtDB->execute();
+  $queryDB = $stmtDB->get_result();
 }else if(!$commune&&$tel){
-  $db->query('insert into resto values('.$id.',"'.$nom.'",'.$x.','.$y.',NULL,'.$plat.',"'.$tel.'")');
+  if($plat==""){
+    $stmtDB= $db->prepare('insert into resto values(?,?,?,?,NULL,NULL,?)');
+    $stmtDB->bind_param("ssdds",$id,$nom,$x,$y,$tel);
+  }else{
+    $stmtDB= $db->prepare('insert into resto values(?,?,?,?,NULL,?,?)');
+    $stmtDB->bind_param("ssddds",$id,$nom,$x,$y,$plat,$tel);
+  }
+  $stmtDB->execute();
+  $queryDB = $stmtDB->get_result();
 }elseif($commune&&!$tel){
-  $db->query('insert into resto values('.$id.',"'.$nom.'",'.$x.','.$y.',"'.$commune.'",'.$plat.',NULL)');
+  if($plat==""){
+    $stmtDB= $db->prepare('insert into resto values(?,?,?,?,?,NULL,NULL)');
+    $stmtDB->bind_param("ssdds",$id,$nom,$x,$y,$commune);
+  }else{
+    $stmtDB= $db->prepare('insert into resto values(?,?,?,?,?,?,NULL)');
+    $stmtDB->bind_param("ssddsd",$id,$nom,$x,$y,$commune,$plat);
+  }
+  $stmtDB->execute();
+  $queryDB = $stmtDB->get_result();
 }else{
-  $db->query('insert into resto values('.$id.',"'.$nom.'",'.$x.','.$y.',NULL,'.$plat.',NULL)');
+  if($plat==""){
+    $stmtDB= $db->prepare('insert into resto values(?,?,?,?,NULL,NULL,NULL)');
+    $stmtDB->bind_param("ssdd",$id,$nom,$x,$y);
+  }else{
+    $stmtDB= $db->prepare('insert into resto values(?,?,?,?,NULL,?,NULL)');
+    $stmtDB->bind_param("ssddd",$id,$nom,$x,$y,$plat,);
+  }
+  $stmtDB->execute();
+  $queryDB = $stmtDB->get_result();
 }
 
 header('Location: index.php');

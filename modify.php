@@ -63,7 +63,9 @@ if (!$_SESSION["cuid"]=="test0000") {
     </div>
     <div class="block container margin-auto">
       <?php
-        $queryResto = $db->query("SELECT * FROM resto");
+        $stmtResto = $db->prepare("SELECT * FROM resto");
+        $stmtResto->execute();
+        $queryResto = $stmtResto->get_result();
         while($rowResto = $queryResto->fetch_assoc()){
           $id = $rowResto['id'];
           $nom = $rowResto['nom'];
@@ -277,7 +279,9 @@ if (!$_SESSION["cuid"]=="test0000") {
             }</script>';
         }
         echo "<script>window.onclick = function(event) {";
-        $queryResto = $db->query("SELECT * FROM resto");
+        $stmtResto = $db->prepare("SELECT * FROM resto");
+        $stmtResto->execute();
+        $queryResto = $stmtResto->get_result();
         while($rowResto = $queryResto->fetch_assoc()){
           $id = $rowResto['id'];
           echo 'var modal'.$id.' = document.getElementById("restoDesc'.$id.'");

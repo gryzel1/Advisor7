@@ -42,7 +42,10 @@ if(isset($_GET['id'])){
   header('Location: ../modify.php');
 }
 
-$db->query("DELETE FROM resto WHERE id=".$id);
+$stmtDB = $db->prepare('DELETE FROM resto WHERE id=?');
+$stmtDB->bind_param("i",$id);
+$stmtDB->execute();
+$queryDB = $stmtDB->get_result();
 
 header('Location: ../modify.php');
 

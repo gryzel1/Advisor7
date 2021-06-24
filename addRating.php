@@ -44,8 +44,15 @@ if(isset($_POST['stars'])){
   header('Location: index.php');
 }
 
-$db->query('insert into rating values("'.$cuid.'","'.$nom.'",'.$stars.',"'.$commentaire.'")');
-$db->query('update rating set note="'.$stars.'",commentaire="'.$commentaire.'" where cuid like "'.$cuid.'"&& nom like "'.$nom.'"');
+$stmtRating = $db->prepare('insert into rating values(?,?,?,?)');
+$stmtRating->bind_param("ssis",$cuid,$nom,$stars,$commentaire);
+$stmtRating->execute();
+$queryRating = $stmtRating->get_result();
+
+$stmtRating = $db->prepare('update rating set note=?,commentaire=? where cuid like ? && nom like ?');
+$stmtRating->bind_param("isss",$stars,$commentaire,$cuid,$nom);
+$stmtRating->execute();
+$queryRating = $stmtRating->get_result();
 
 header('Location: index.php');
 

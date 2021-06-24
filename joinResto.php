@@ -42,9 +42,17 @@ if(isset($_GET['id'])){
   header('Location: ../index.php');
 }
 
-$db->query('DELETE FROM reservation WHERE cuid like "'.$_SESSION["cuid"].'"');
+$stmtDB = $db->prepare('DELETE FROM reservation WHERE cuid like ?');
+$stmtDB->bind_param("s",$_SESSION["cuid"]);
+$stmtDB->execute();
+$queryDB = $stmtDB->get_result();
+
 $date = date('d/m/Y');
-$db->query('insert into reservation values("'.$_SESSION["cuid"].'","'.$date.'",'.$id.')');
+
+$stmtDB = $db->prepare("INSERT INTO reservation VALUES(?,?,?)");
+$stmtDB->bind_param("ssi",$_SESSION["cuid"],$date,$id);
+$stmtDB->execute();
+$queryDB = $stmtDB->get_result();
 
 header('Location: ../index.php');
 
