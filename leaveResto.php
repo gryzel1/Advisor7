@@ -43,7 +43,7 @@ if(isset($_GET['id'])){
 }
 
 $stmtDB = $db->prepare('DELETE FROM reservation WHERE cuid like ?');
-$stmtDB->bind_param("ssi",$_SESSION["cuid"]);
+$stmtDB->bind_param("s",$_SESSION["cuid"]);
 $stmtDB->execute();
 $queryDB = $stmtDB->get_result();
 
