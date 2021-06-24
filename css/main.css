@@ -98,6 +98,10 @@ a{
   color: #D81B60;
 }
 
+.blue-color{
+  color: rgb(2, 73, 147);
+}
+
 .button-column{
   /*text-align: center;*/
 }

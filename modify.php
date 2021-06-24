@@ -31,7 +31,7 @@ if (!$_SESSION["cuid"]=="test0000") {
     <!-- fonts -->
 
     <!-- icon -->
-    <link rel="shortcut icon" href="img/icon.png">
+    <link rel="shortcut icon" href="img/icon7.png">
     <!-- icon -->
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
@@ -50,9 +50,9 @@ if (!$_SESSION["cuid"]=="test0000") {
         <div class="is-header">
           <div class="columns">
             <div class="column">
-              <p class="advisor"><img src="img/logo.png" alt="pink" style="width:50px;margin-top:15px"> Advisor </a><a href="index.php" class="is-hidden-desktop" style="color:white;font-size:20px"><i class="fas fa-home"></i></a></p>
+              <p class="advisor"><img src="img/logo7.png" alt="Advisor7" style="width:50px;margin-top:15px"> Advisor7 <a href="index.php" class="is-hidden-desktop" style="color:white;font-size:20px"><i class="fas fa-home"></i></a></p>
             </div>
-            <div class="column button-column">
+            <div style="margin-top:8px;text-align:right" class="column button-column">
               <br>
               <a id="addButton" class="pink-button is-hidden-touch" href="index.php"><i class="fas fa-map-marked-alt"></i>&nbsp;&nbsp;Retour à la carte</a>
               <br><br>
@@ -84,9 +84,9 @@ if (!$_SESSION["cuid"]=="test0000") {
             $plat .= "€";
           }
           if($tel){
-            $telStr=' &nbsp;&nbsp;/&nbsp;&nbsp; <span class="pink-color"><i class="fa fa-phone"></i></span>&nbsp;&nbsp;'.$tel;
+            $telStr=' &nbsp;&nbsp;/&nbsp;&nbsp; <span class="blue-color"><i class="fa fa-phone"></i></span>&nbsp;&nbsp;'.$tel;
           }else{
-            $telStr=' &nbsp;&nbsp;/&nbsp;&nbsp; <span class="pink-color"><i class="fa fa-phone"></i></span>&nbsp;&nbsp; Non défini';
+            $telStr=' &nbsp;&nbsp;/&nbsp;&nbsp; <span class="blue-color"><i class="fa fa-phone"></i></span>&nbsp;&nbsp; Non défini';
           }
           echo '<div class="box is-hidden-touch" style="width:75%;margin:auto;margin-top:15px;">
             <article class="media">
@@ -97,7 +97,7 @@ if (!$_SESSION["cuid"]=="test0000") {
                     <span style="float:right;margin-right:10px;"><a id="select'.$id.'" class="button is-success is-modify"><i class="fas fa-pen"></i></a></span>
                     <strong>'.$nom.'</strong>
                     <br>
-                    <span class="pink-color"><i class="fas fa-city"></i></span>&nbsp;&nbsp;'.$commune.' &nbsp;&nbsp;/ &nbsp;&nbsp;<span class="pink-color"><i class="fas fa-map-pin"></i></span>&nbsp;&nbsp;<strong>Longitude :</strong> '.$x.' - <strong>Latitude :</strong> '.$y.' &nbsp;&nbsp;/&nbsp;&nbsp; <span class="pink-color"><i class="fas fa-money-bill-wave"></i></span>&nbsp;&nbsp;'.$plat.$telStr.'
+                    <span class="blue-color"><i class="fas fa-city"></i></span>&nbsp;&nbsp;'.$commune.' &nbsp;&nbsp;/ &nbsp;&nbsp;<span class="blue-color"><i class="fas fa-map-pin"></i></span>&nbsp;&nbsp;<strong>Longitude :</strong> '.$x.' - <strong>Latitude :</strong> '.$y.' &nbsp;&nbsp;/&nbsp;&nbsp; <span class="blue-color"><i class="fas fa-money-bill-wave"></i></span>&nbsp;&nbsp;'.$plat.$telStr.'
                   </p>
                 </div>
               </div>

@@ -61,7 +61,7 @@ if (!$_SESSION["cuid"]) {
     <!-- fonts -->
 
     <!-- icon -->
-    <link rel="shortcut icon" href="img/icon.png">
+    <link rel="shortcut icon" href="img/icon7.png">
     <!-- icon -->
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
