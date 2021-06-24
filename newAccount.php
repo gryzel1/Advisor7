@@ -40,15 +40,32 @@
           <div class="container">
             <div class="columns is-centered">
               <div class="column is-5-tablet is-4-desktop is-3-widescreen">
-                <form action="index.php" class="box" method="post">
-                  <img src="img/blueIcon7.png" alt="Advisor7" style="width:150px;display:block;margin:auto">
-                  <label class="label is-large" style="text-align:center;margin-top:15px;">Advisor7</label>
+                <form action="addAccountRequest.php" class="box" method="post">
+                  <label class="label is-large" style="text-align:center;margin-top:15px;">Demande d'inscription</label>
                   <div class="field">
-                    <label for="" class="label">Identifiant</label>
+                    <label for="" class="label">Prénom</label>
                     <div class="control has-icons-left">
-                      <input placeholder="exemple@hote.fr" class="input" required name="cuid">
+                      <input placeholder="Prénom" class="input" required name="firstname">
                       <span class="icon is-small is-left">
                         <i class="fas fa-id-card"></i>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label for="" class="label">Nom</label>
+                    <div class="control has-icons-left">
+                      <input placeholder="Nom" class="input" required name="lastname">
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-file-signature"></i>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label for="" class="label">Adresse email</label>
+                    <div class="control has-icons-left">
+                      <input placeholder="exemple@hote.fr" class="input" required name="email">
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-paper-plane"></i>
                       </span>
                     </div>
                   </div>
@@ -62,14 +79,12 @@
                     </div>
                   </div>
                   <div class="field">
-                    <button type="submit" class="button is-success is-pink" style="padding-left:29%;padding-right:29%;margin-top:15px;">
-                      Se connecter
+                    <button type="submit" class="button is-success is-pink" style="margin-top:15px;">
+                      Envoyer la demande
                     </button>
+                    <p style="margin-top:10px;text-align:center">(la modération traitera votre requête ultérieurement)</p>
                   </div>
                 </form>
-                <a href="newAccount.php" class="button is-dark" style="width:100%"><i class="fas fa-user-plus"></i>&nbsp;Créer un compte</a>
-                  <a href="testAccount.php" class="button is-dark" style="width:100%;margin-top:10px;"><i class="fas fa-user-tag"></i>&nbsp;Session invité</a>
-                  <a href="https://grisel.eu" class="button is-dark" style="width:100%;margin-top:10px;"><i class="fas fa-file-code"></i>&nbsp;Développeur</a>
               </div>
             </div>
           </div>
@@ -77,6 +92,5 @@
       </section>
     </div>
 </div>
-
   </body>
 </html>
