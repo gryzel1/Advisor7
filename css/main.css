@@ -30,6 +30,7 @@ a{
   right: 0;
   height: 9rem;
   background-color: rgb(2, 73, 147);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .is-header{

@@ -1,7 +1,13 @@
 var map = L.map('map').setView([46.227638,2.213749],6);
-L.tileLayer('https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=Kt1FBNmc7DPn61Bhl1Zl', {
-  attribution:'<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
+L.tileLayer('https://api.mapbox.com/styles/v1/gryzel1/ckqaowpol0ju017nwj5zpqi8e/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZ3J5emVsMSIsImEiOiJja3Fhb3VrdHQwMDd2MnBwNjljNG1uZzJwIn0.SnSwquCEh5ffWYn5BI3OSA', {
 }).addTo(map);
+
+//mapboxgl.accessToken = 'pk.eyJ1IjoiZ3J5emVsMSIsImEiOiJja3Fhb3VrdHQwMDd2MnBwNjljNG1uZzJwIn0.SnSwquCEh5ffWYn5BI3OSA';
+//var map = new mapboxgl.Map({
+//container: 'map',
+//style: 'mapbox://styles/mapbox/streets-v11'
+//});
+
 
  window.addEventListener("load", function(){
      //map.flyTo([45.68,0.19],12);
