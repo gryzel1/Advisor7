@@ -13,19 +13,6 @@ L.tileLayer('https://api.mapbox.com/styles/v1/gryzel1/ckqaowpol0ju017nwj5zpqi8e/
      //map.flyTo([45.68,0.19],12);
  });
 
-// map.on('zoomend', function(){
-//   if(map.getZoom() <= 11){
-//     popups.forEach(function(popup, index, array) {
-//       map.closePopup(popup);
-//     });
-//   }
-//   else {
-//     popups.forEach(function(popup, index, array) {
-//       map.openPopup(popup);
-//     });
-//   }
-// });
-
 navigator.geolocation.getCurrentPosition(function(position) {
   setPosition(position.coords.latitude, position.coords.longitude);
 });
@@ -290,4 +277,20 @@ jQuery("body").on("click","a.addPopup", function(e){
   e.preventDefault();
   var modal = document.getElementById("addResto");
   modal.style.display = "block";
+});
+
+map.on('zoomend', function(){
+  // if(map.getZoom() <= 11){
+  //   popups.forEach(function(popup, index, array) {
+  //     map.closePopup(popup);
+  //   });
+  // }
+  // else {
+  //   popups.forEach(function(popup, index, array) {
+  //     map.openPopup(popup);
+  //   });
+  // }
+  marker.setOpacity(0);
+  marker.setLatLng(new L.LatLng(0,0));
+  marker.closePopup();
 });
