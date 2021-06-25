@@ -14,11 +14,13 @@ if(isset($_POST['cuid'])){
   $motdepasse = $rowLogin['motdepasse'];
   $prenom = $rowLogin['prenom'];
   $nom = $rowLogin['nom'];
+  $role = $rowLogin['role'];
 
   if ($passwd==$motdepasse) {
       $_SESSION["cuid"]=$cuid;
       $_SESSION["prenom"]=$prenom;
       $_SESSION["nom"]=$nom;
+      $_SESSION["role"]=$role;
   }else {
     header('Location: login.php');
   }
