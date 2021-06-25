@@ -42,10 +42,21 @@ if(isset($_GET['id'])){
   header('Location: ../modify.php');
 }
 
-$stmtDB = $db->prepare('DELETE FROM resto WHERE id=?');
-$stmtDB->bind_param("i",$id);
-$stmtDB->execute();
-$queryDB = $stmtDB->get_result();
+$stmtResto = $db->prepare("SELECT * FROM resto WHERE id=?");
+$stmtResto->bind_param("i",$id);
+$stmtResto->execute();
+$queryResto = $stmtResto->get_result();
+$rowResto = $queryResto->fetch_assoc();
+$adder = $rowResto['cuid'];
+$isAdder = False;
+if($adder == $_SESSION["cuid"]) $isAdder = True;
+
+if($_SESSION["role"]=="admin" || $isAdder){
+  $stmtDB = $db->prepare('DELETE FROM resto WHERE id=?');
+  $stmtDB->bind_param("i",$id);
+  $stmtDB->execute();
+  $queryDB = $stmtDB->get_result();
+}
 
 header('Location: ../modify.php');
 

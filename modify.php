@@ -5,7 +5,7 @@ if (!$_SESSION["cuid"]) {
   header('Location: login.php');
 }
 
-if (!$_SESSION["cuid"]=="test0000") {
+if ($_SESSION["cuid"]=="test0000") {
   header('Location: index.php');
 }
 
@@ -74,6 +74,9 @@ if (!$_SESSION["cuid"]=="test0000") {
           $y = $rowResto['y'];
           $plat = $rowResto['plat'];
           $tel = $rowResto['tel'];
+          $adder = $rowResto['cuid'];
+          $isAdder = False;
+          if($adder == $_SESSION["cuid"]) $isAdder = True;
           $nom = str_replace("\'","'",$nom);
           if ($commune=="") {
             $commune = "Non défini";
@@ -93,9 +96,12 @@ if (!$_SESSION["cuid"]=="test0000") {
               <div class="media-content">
                 <div class="content">
                   <p>
-                    <span style="float:right"><a href="delResto.php/?id='.$id.'" class="button is-success is-modify"><i class="fas fa-trash-alt"></i></a></span>
-                    <span style="float:right;margin-right:10px;"><a id="select'.$id.'" class="button is-success is-modify"><i class="fas fa-pen"></i></a></span>
-                    <strong>'.$nom.'</strong>
+                    ';
+                    if($_SESSION["role"]=="admin" || $isAdder){
+                      echo '<span style="float:right"><a href="delResto.php/?id='.$id.'" class="button is-success is-modify"><i class="fas fa-trash-alt"></i></a></span>
+                      <span style="float:right;margin-right:10px;"><a id="select'.$id.'" class="button is-success is-modify"><i class="fas fa-pen"></i></a></span>';
+                    }
+                    echo '<strong>'.$nom.'</strong>
                     <br>
                     <span class="blue-color"><i class="fas fa-city"></i></span>&nbsp;&nbsp;'.$commune.' &nbsp;&nbsp;/ &nbsp;&nbsp;<span class="blue-color"><i class="fas fa-map-pin"></i></span>&nbsp;&nbsp;<strong>Longitude :</strong> '.$x.' - <strong>Latitude :</strong> '.$y.' &nbsp;&nbsp;/&nbsp;&nbsp; <span class="blue-color"><i class="fas fa-money-bill-wave"></i></span>&nbsp;&nbsp;'.$plat.$telStr.'
                   </p>
@@ -110,12 +116,14 @@ if (!$_SESSION["cuid"]=="test0000") {
             <article class="media">
               <div class="media-content">
                 <div class="content">
-                  <p>
-                    <span style="float:right"><a href="delResto.php/?id='.$id.'" class="button is-success is-modify"><i class="fas fa-trash-alt"></i></a></span>
-                    <span style="float:right;margin-right:10px;"><a id="select'.$id.'Mobile" class="button is-success is-modify"><i class="fas fa-pen"></i></a></span>
-                    <strong>'.$nom.'</strong>
+                  <p>';
+                  if($_SESSION["role"]=="admin" || $isAdder){
+                    echo '<span style="float:right"><a href="delResto.php/?id='.$id.'" class="button is-success is-modify"><i class="fas fa-trash-alt"></i></a></span>
+                    <span style="float:right;margin-right:10px;"><a id="select'.$id.'Mobile" class="button is-success is-modify"><i class="fas fa-pen"></i></a></span>';
+                  }
+                    echo '<strong>'.$nom.'</strong>
                     <br><br>
-                    <span class="pink-color"><i class="fas fa-city"></i></span>&nbsp;&nbsp;'.$commune.'<br><span class="pink-color"><i class="fas fa-map-pin"></i></span>&nbsp;&nbsp;<strong>Longitude :</strong> '.$x.' - <strong>Latitude :</strong> '.$y.'<br><span class="pink-color"><i class="fas fa-money-bill-wave"></i></span>&nbsp;&nbsp;'.$plat.'<br>'.$telStr.'
+                    <span class="blue-color"><i class="fas fa-city"></i></span>&nbsp;&nbsp;'.$commune.'<br><span class="blue-color"><i class="fas fa-map-pin"></i></span>&nbsp;&nbsp;<strong>Longitude :</strong> '.$x.' - <strong>Latitude :</strong> '.$y.'<br><span class="blue-color"><i class="fas fa-money-bill-wave"></i></span>&nbsp;&nbsp;'.$plat.'<br>'.$telStr.'
                   </p>
                 </div>
               </div>

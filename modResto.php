@@ -47,59 +47,70 @@ if(isset($_POST['nom'])){
   header('Location: modify.php');
 }
 
-if ($commune=="") {
-  $commune=null;
-}
+$stmtResto = $db->prepare("SELECT * FROM resto WHERE id=?");
+$stmtResto->bind_param("i",$id);
+$stmtResto->execute();
+$queryResto = $stmtResto->get_result();
+$rowResto = $queryResto->fetch_assoc();
+$adder = $rowResto['cuid'];
+$isAdder = False;
+if($adder == $_SESSION["cuid"]) $isAdder = True;
 
-$plat = str_replace (",", ".", $plat);
-$tel = str_replace (" ", "", $tel);
-$x = str_replace (",", ".", $x);
-$y = str_replace (",", ".", $y);
-
-if($commune&&$tel){
-  if($plat==""){
-    $stmtDB= $db->prepare('UPDATE resto set nom=?,x=?,y=?,commune=?,plat=NULL,tel=? where id like ?');
-    $stmtDB->bind_param("sddssi",$nom,$x,$y,$commune,$tel,$id);
-  }else{
-    $stmtDB= $db->prepare('UPDATE resto set nom=?,x=?,y=?,commune=?,plat=?,tel=? where id like ?');
-    $stmtDB->bind_param("sddsdsi",$nom,$x,$y,$commune,$plat,$tel,$id);
+if($_SESSION["role"]=="admin" || $isAdder){
+  if ($commune=="") {
+    $commune=null;
   }
-  $stmtDB->execute();
-  $queryDB = $stmtDB->get_result();
 
-}else if(!$commune&&$tel){
-  if($plat==""){
-    $stmtDB= $db->prepare('UPDATE resto set nom=?,x=?,y=?,commune=NULL,plat=NULL,tel=? where id like ?');
-    $stmtDB->bind_param("sddsi",$nom,$x,$y,$tel,$id);
+  $plat = str_replace (",", ".", $plat);
+  $tel = str_replace (" ", "", $tel);
+  $x = str_replace (",", ".", $x);
+  $y = str_replace (",", ".", $y);
+
+  if($commune&&$tel){
+    if($plat==""){
+      $stmtDB= $db->prepare('UPDATE resto set nom=?,x=?,y=?,commune=?,plat=NULL,tel=? where id like ?');
+      $stmtDB->bind_param("sddssi",$nom,$x,$y,$commune,$tel,$id);
+    }else{
+      $stmtDB= $db->prepare('UPDATE resto set nom=?,x=?,y=?,commune=?,plat=?,tel=? where id like ?');
+      $stmtDB->bind_param("sddsdsi",$nom,$x,$y,$commune,$plat,$tel,$id);
+    }
+    $stmtDB->execute();
+    $queryDB = $stmtDB->get_result();
+
+  }else if(!$commune&&$tel){
+    if($plat==""){
+      $stmtDB= $db->prepare('UPDATE resto set nom=?,x=?,y=?,commune=NULL,plat=NULL,tel=? where id like ?');
+      $stmtDB->bind_param("sddsi",$nom,$x,$y,$tel,$id);
+    }else{
+      $stmtDB= $db->prepare('UPDATE resto set nom=?,x=?,y=?,commune=NULL,plat=?,tel=? where id like ?');
+      $stmtDB->bind_param("sdddsi",$nom,$x,$y,$plat,$tel,$id);
+    }
+    $stmtDB->execute();
+    $queryDB = $stmtDB->get_result();
+
+  }elseif($commune&&!$tel){
+    if($plat==""){
+      $stmtDB= $db->prepare('UPDATE resto set nom=?,x=?,y=?,commune=?,plat=NULL,tel=NULL where id like ?');
+      $stmtDB->bind_param("sddsi",$nom,$x,$y,$commune,$id);
+    }else{
+      $stmtDB= $db->prepare('UPDATE resto set nom=?,x=?,y=?,commune=?,plat=?,tel=NULL where id like ?');
+      $stmtDB->bind_param("sddsdi",$nom,$x,$y,$commune,$plat,$id);
+    }
+    $stmtDB->execute();
+    $queryDB = $stmtDB->get_result();
+
   }else{
-    $stmtDB= $db->prepare('UPDATE resto set nom=?,x=?,y=?,commune=NULL,plat=?,tel=? where id like ?');
-    $stmtDB->bind_param("sdddsi",$nom,$x,$y,$plat,$tel,$id);
-  }
-  $stmtDB->execute();
-  $queryDB = $stmtDB->get_result();
+    if($plat==""){
+      $stmtDB= $db->prepare('UPDATE resto set nom=?,x=?,y=?,commune=NULL,plat=NULL,tel=NULL where id like ?');
+      $stmtDB->bind_param("sddi",$nom,$x,$y,$id);
+    }else{
+      $stmtDB= $db->prepare('UPDATE resto set nom=?,x=?,y=?,commune=NULL,plat=?,tel=NULL where id like ?');
+      $stmtDB->bind_param("sdddi",$nom,$x,$y,$plat,$id);
+    }
+    $stmtDB->execute();
+    $queryDB = $stmtDB->get_result();
 
-}elseif($commune&&!$tel){
-  if($plat==""){
-    $stmtDB= $db->prepare('UPDATE resto set nom=?,x=?,y=?,commune=?,plat=NULL,tel=NULL where id like ?');
-    $stmtDB->bind_param("sddsi",$nom,$x,$y,$commune,$id);
-  }else{
-    $stmtDB= $db->prepare('UPDATE resto set nom=?,x=?,y=?,commune=?,plat=?,tel=NULL where id like ?');
-    $stmtDB->bind_param("sddsdi",$nom,$x,$y,$commune,$plat,$id);
   }
-  $stmtDB->execute();
-  $queryDB = $stmtDB->get_result();
-
-}else{
-  if($plat==""){
-    $stmtDB= $db->prepare('UPDATE resto set nom=?,x=?,y=?,commune=NULL,plat=NULL,tel=NULL where id like ?');
-    $stmtDB->bind_param("sddi",$nom,$x,$y,$id);
-  }else{
-    $stmtDB= $db->prepare('UPDATE resto set nom=?,x=?,y=?,commune=NULL,plat=?,tel=NULL where id like ?');
-    $stmtDB->bind_param("sdddi",$nom,$x,$y,$plat,$id);
-  }
-  $stmtDB->execute();
-  $queryDB = $stmtDB->get_result();
-
 }
 
 header('Location: modify.php');

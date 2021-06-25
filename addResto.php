@@ -69,41 +69,41 @@ $y = str_replace (",", ".", $y);
 
 if($commune&&$tel){
   if($plat==""){
-    $stmtDB= $db->prepare('insert into resto values(?,?,?,?,?,NULL,?)');
-    $stmtDB->bind_param("ssddss",$id,$nom,$x,$y,$commune,$tel);
+    $stmtDB= $db->prepare('insert into resto values(?,?,?,?,?,NULL,?,?)');
+    $stmtDB->bind_param("ssddsss",$id,$nom,$x,$y,$commune,$tel,$_SESSION["cuid"]);
   }else{
-    $stmtDB= $db->prepare('insert into resto values(?,?,?,?,?,?,?)');
-    $stmtDB->bind_param("ssddsds",$id,$nom,$x,$y,$commune,$plat,$tel);
+    $stmtDB= $db->prepare('insert into resto values(?,?,?,?,?,?,?,?)');
+    $stmtDB->bind_param("ssddsdss",$id,$nom,$x,$y,$commune,$plat,$tel,$_SESSION["cuid"]);
   }
   $stmtDB->execute();
   $queryDB = $stmtDB->get_result();
 }else if(!$commune&&$tel){
   if($plat==""){
-    $stmtDB= $db->prepare('insert into resto values(?,?,?,?,NULL,NULL,?)');
-    $stmtDB->bind_param("ssdds",$id,$nom,$x,$y,$tel);
+    $stmtDB= $db->prepare('insert into resto values(?,?,?,?,NULL,NULL,?,?)');
+    $stmtDB->bind_param("ssddss",$id,$nom,$x,$y,$tel,$_SESSION["cuid"]);
   }else{
-    $stmtDB= $db->prepare('insert into resto values(?,?,?,?,NULL,?,?)');
-    $stmtDB->bind_param("ssddds",$id,$nom,$x,$y,$plat,$tel);
+    $stmtDB= $db->prepare('insert into resto values(?,?,?,?,NULL,?,?,?)');
+    $stmtDB->bind_param("ssdddss",$id,$nom,$x,$y,$plat,$tel,$_SESSION["cuid"]);
   }
   $stmtDB->execute();
   $queryDB = $stmtDB->get_result();
 }elseif($commune&&!$tel){
   if($plat==""){
-    $stmtDB= $db->prepare('insert into resto values(?,?,?,?,?,NULL,NULL)');
-    $stmtDB->bind_param("ssdds",$id,$nom,$x,$y,$commune);
+    $stmtDB= $db->prepare('insert into resto values(?,?,?,?,?,NULL,NULL,?)');
+    $stmtDB->bind_param("ssddss",$id,$nom,$x,$y,$commune,$_SESSION["cuid"]);
   }else{
-    $stmtDB= $db->prepare('insert into resto values(?,?,?,?,?,?,NULL)');
-    $stmtDB->bind_param("ssddsd",$id,$nom,$x,$y,$commune,$plat);
+    $stmtDB= $db->prepare('insert into resto values(?,?,?,?,?,?,NULL,?)');
+    $stmtDB->bind_param("ssddsds",$id,$nom,$x,$y,$commune,$plat,$_SESSION["cuid"]);
   }
   $stmtDB->execute();
   $queryDB = $stmtDB->get_result();
 }else{
   if($plat==""){
-    $stmtDB= $db->prepare('insert into resto values(?,?,?,?,NULL,NULL,NULL)');
-    $stmtDB->bind_param("ssdd",$id,$nom,$x,$y);
+    $stmtDB= $db->prepare('insert into resto values(?,?,?,?,NULL,NULL,NULL,?)');
+    $stmtDB->bind_param("ssdds",$id,$nom,$x,$y,$_SESSION["cuid"]);
   }else{
-    $stmtDB= $db->prepare('insert into resto values(?,?,?,?,NULL,?,NULL)');
-    $stmtDB->bind_param("ssddd",$id,$nom,$x,$y,$plat,);
+    $stmtDB= $db->prepare('insert into resto values(?,?,?,?,NULL,?,NULL,?)');
+    $stmtDB->bind_param("ssddds",$id,$nom,$x,$y,$plat,$_SESSION["cuid"]);
   }
   $stmtDB->execute();
   $queryDB = $stmtDB->get_result();
