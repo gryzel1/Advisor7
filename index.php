@@ -77,7 +77,6 @@ if (!$_SESSION["cuid"]) {
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script src="js/leaflet.extra-markers.min.js"></script>
     <script src="js/leaflet.markercluster-src.js"></script>
-    <script src="js/main.js"></script>
     <!-- JS -->
   </head>
 

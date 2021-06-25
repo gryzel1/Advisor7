@@ -13,18 +13,18 @@ L.tileLayer('https://api.mapbox.com/styles/v1/gryzel1/ckqaowpol0ju017nwj5zpqi8e/
      //map.flyTo([45.68,0.19],12);
  });
 
-map.on('zoomend', function(){
-  if(map.getZoom() <= 11){
-    popups.forEach(function(popup, index, array) {
-      map.closePopup(popup);
-    });
-  }
-  else {
-    popups.forEach(function(popup, index, array) {
-      map.openPopup(popup);
-    });
-  }
-});
+// map.on('zoomend', function(){
+//   if(map.getZoom() <= 11){
+//     popups.forEach(function(popup, index, array) {
+//       map.closePopup(popup);
+//     });
+//   }
+//   else {
+//     popups.forEach(function(popup, index, array) {
+//       map.openPopup(popup);
+//     });
+//   }
+// });
 
 navigator.geolocation.getCurrentPosition(function(position) {
   setPosition(position.coords.latitude, position.coords.longitude);
@@ -34,7 +34,7 @@ function setPosition(x,y){
   map.flyTo([x,y],13);
   var locMarker = L.ExtraMarkers.icon({
       icon: 'fa-street-view',
-      markerColor: 'green',
+      markerColor: 'rgb(2, 73, 147)',
       svg: 'true',
       shape: 'circle',
       prefix: 'fas'
@@ -244,3 +244,50 @@ window.addEventListener('load', function () {
 
   customElements.define("x-star-rating", StarRating);
 })
+
+var xc = 0;
+var yc = 0;
+
+var locMarker = L.ExtraMarkers.icon({
+  icon: 'fas fa-plus',
+  markerColor: 'rgb(2, 73, 147)',
+  svg: 'true',
+  shape: 'circle',
+  prefix: 'fas'
+});
+var marker = L.marker([0, 0], {icon: locMarker}).addTo(map);
+marker.setOpacity(0);
+
+var popup = L.popup({
+  closeButton:false,
+  autoClose:false,
+  closeOnEscapeKey:false,
+  closeOnClick:false,
+  minWidth:100,
+  autoPan:false
+})
+.setContent('<a class="addPopup" style=\"display:inline-flex;text-align:center;color: rgb(2, 73, 147);\"><i class=\"fas fa-plus\"></i>&nbsp;&nbsp;Proposer un restaurant ici');
+
+marker.bindPopup(popup);
+
+map.on('click', function(ev){
+  var latlng = map.mouseEventToLatLng(ev.originalEvent);
+  xc = latlng.lat;
+  yc = latlng.lng;
+  var x = document.getElementById("x");
+  var y = document.getElementById("y");
+  x.value=xc;
+  y.value=yc;
+  var newLatLng = new L.LatLng(xc, yc);
+  marker.setLatLng(newLatLng);
+  marker.setOpacity(1);
+  marker.openPopup();
+});
+
+var addPopup = document.getElementById("addPopup");
+
+jQuery("body").on("click","a.addPopup", function(e){
+  e.preventDefault();
+  var modal = document.getElementById("addResto");
+  modal.style.display = "block";
+});
