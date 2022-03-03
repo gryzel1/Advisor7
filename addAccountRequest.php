@@ -51,13 +51,13 @@ if(isset($_POST['firstname'])){
 $prenom = str_replace(" ", "", $prenom);
 $nom = str_replace(" ", "", $nom);
 $email = str_replace(" ", "", $email);
-$mdp = str_replace(" ", "", $mdp);
+$mdp = crypt(str_replace(" ", "", $mdp), '$6$rounds=5000$advisor7havethebestrestaurants$');
 
 $stmtDB= $db->prepare('INSERT INTO accountRequest VALUES(?,?,?,?)');
 $stmtDB->bind_param("ssss",$email,$mdp,$prenom,$nom);
 $stmtDB->execute();
 $queryDB = $stmtDB->get_result();
+//header('Location: login.php');
 
-header('Location: login.php');
-
+echo $mdp;
  ?>

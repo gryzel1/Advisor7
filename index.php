@@ -3,7 +3,7 @@ $db -> set_charset("utf8");
 
 if(isset($_POST['cuid'])){
   $cuid = strtolower($_POST['cuid']);
-  $passwd = $_POST['passwd'];
+  $passwd = crypt($_POST['passwd'], '$6$rounds=5000$advisor7havethebestrestaurants$');
 
   $stmtLogin = $db->prepare("SELECT * FROM user WHERE cuid LIKE ?");
   $stmtLogin->bind_param("s",$cuid);
@@ -16,7 +16,7 @@ if(isset($_POST['cuid'])){
   $nom = $rowLogin['nom'];
   $role = $rowLogin['role'];
 
-  if ($passwd==$motdepasse) {
+  if (hash_equals($motdepasse, $passwd)) {
       $_SESSION["cuid"]=$cuid;
       $_SESSION["prenom"]=$prenom;
       $_SESSION["nom"]=$nom;
